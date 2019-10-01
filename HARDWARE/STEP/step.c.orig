@@ -3,9 +3,12 @@
 #include "timer.h"
 #include "delay.h"
 #include "stdio.h"
-int value[]=
-{
-
+s32 value[]=
+{   
+	3571,3571,3571,3571,3571,3571,3571,3571,3125,3125,
+    3125,3125,3125,3125,3125,2778,2778,2778,2778,2778,
+    2500,2500,2500,2500,2273,2273,2273,2083,2083,2083,
+    1923,1923,1923,1786,1786,1667,1667,1562,1562,1471,
     1471,1389,1316,1316,1250,1190,1190,1136,1087,1042,
     1000,962,926,893,862,833,806,781,758,714,
     694,658,641,625,595,568,556,532,510,490,
@@ -55,10 +58,10 @@ int value[]=
     25,25,25,25,25,25,25,25,25,25
 };
 
-void speed_up(int ia,int step)//四个电机一起加速
+void speed_up(int ia,s32 step)//四个电机一起加速
 {
     int Count=0;//加速标志数
-    int Speed;
+    s32 Speed;
     switch(ia)//设定四个步进电机目标步数
     {
     case 0:
@@ -86,8 +89,11 @@ void speed_up(int ia,int step)//四个电机一起加速
         SetpMotor_SetStep(3,step);
         break;
     }
-
-    for(Count = 0; Count<469; Count++)//每隔2ms重复设定速度值，越小越快
+    SetpMotor_SetStep(0,step);	//后退
+    SetpMotor_SetStep(1,step);
+    SetpMotor_SetStep(2,-step);
+    SetpMotor_SetStep(3,-step);
+    for(Count = 0; Count<510; Count++)//每隔2ms重复设定速度值，越小越快
     {
         Speed=value[Count];
         delay_ms(2);
@@ -95,14 +101,14 @@ void speed_up(int ia,int step)//四个电机一起加速
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
         SetpMotor_SetSpeed(3,Speed);
-        printf("count = %d\r\n",Count);
+		printf("count = %d\r\n",Count);
     }
 }
 
-void speed_down(int ia,int step)//四个电机一起加速
+void speed_down(int ia,s32 step)//四个电机一起加速
 {
     int Count;//加速标志数
-    int Speed;
+    s32 Speed;
     switch(ia)//设定四个步进电机目标步数
     {
     case 0:
@@ -130,7 +136,7 @@ void speed_down(int ia,int step)//四个电机一起加速
         SetpMotor_SetStep(3,step);
         break;
     }
-    for(Count = 469; Count>0; Count--)//每隔2ms重复设定速度值，越大越慢
+    for(Count = 509; Count>0; Count--)//每隔2ms重复设定速度值，越大越慢
     {
         Speed=value[Count];
         Speed=value[Count];
