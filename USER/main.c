@@ -23,6 +23,10 @@ int main(void)
         speed_up(1,16000);
         step_wait();
         //speed_down(0,360);
+		speed_up(0,16000);
+        step_wait();
+		speed_up(3,16000);
+        step_wait();
     }
 }
 
