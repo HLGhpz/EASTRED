@@ -5,6 +5,7 @@
 #include "usart.h"
 #include "stdio.h"
 #include "wave.h"
+#include "infrared_INIT.h"
 extern float Left_dist;
 extern float Front_dist;
 extern float Right_dist;
@@ -12,7 +13,7 @@ extern float BackLeft_dist;
 extern float BackRight_dist;
 int value[]=
 {
-	3571,3571,3571,3571,3571,3571,3571,3571,3125,3125,
+    3571,3571,3571,3571,3571,3571,3571,3571,3125,3125,
     3125,3125,3125,3125,3125,2778,2778,2778,2778,2778,
     2500,2500,2500,2500,2273,2273,2273,2083,2083,2083,
     1923,1923,1923,1786,1786,1667,1667,1562,1562,1471,
@@ -69,7 +70,7 @@ void speed_up(int ia,int step)//四个电机一起加速
 {
     int Count=0;//加速标志数
     int Speed;
-	
+
     switch(ia)//设定四个步进电机目标步数
     {
     case 0:
@@ -148,7 +149,7 @@ void speed_down(int ia,int step)//四个电机一起加速
         Speed=value[Count];
         Speed=value[Count];
         Speed=value[Count];
-        delay_ms(1);
+        delay_us(200);
         SetpMotor_SetSpeed(0,Speed);
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
@@ -158,11 +159,11 @@ void speed_down(int ia,int step)//四个电机一起加速
 
 void step_wait(void)
 {   int wait=0;
-    if(motor[0].target!=motor[0].step) 
+    if(motor[0].target!=motor[0].step)
         wait=1;
     while(wait)
-    {    		
-		if(motor[0].target==motor[0].step)
+    {
+        if(motor[0].target==motor[0].step)
         {
             motor[0].step=motor[0].target=0;
             motor[1].step=motor[1].target=0;
@@ -172,5 +173,108 @@ void step_wait(void)
         }
     }
 
+}
+void GO(int ib)
+{   int going_wait=0;
+    int GO_CONT;
+    s32 DOWN_speed;
+    switch(ib)
+    {
+    case 0:
+        speed_up(0,50000);//后退起步
+        if(motor[0].target!=motor[0].step)//当左下角和右下角都没有检测到垄的时候开始减速到60
+            going_wait=1;
+        while(going_wait)
+        {   if(L_below_C==1&&R_below_C==1)
+            {   delay_ms(2);
+                if(L_above_C==0||R_above_C==0)
+                {
+                    for(GO_CONT = 509; GO_CONT>225; GO_CONT--)//每隔200us重复设定速度值，越大越慢
+                    {
+                        DOWN_speed=value[GO_CONT];
+                        delay_us(200);
+                        SetpMotor_SetSpeed(0,DOWN_speed);
+                        SetpMotor_SetSpeed(1,DOWN_speed);
+                        SetpMotor_SetSpeed(2,DOWN_speed);
+                        SetpMotor_SetSpeed(3,DOWN_speed);
+                    }
+                    going_wait=0;
+                }
+            }
+        }
+        if(motor[0].target!=motor[0].step)//当左后方检测到垄边的时候开始减速很慢，然后停下
+            going_wait=1;
+        while(going_wait)
+        {   if(L_rear==0)
+            {   delay_ms(2);
+                if(L_rear==0)
+                {
+                    for(GO_CONT = 225; GO_CONT>0; GO_CONT--)//每隔200us重复设定速度值，越大越慢
+                    {
+                        DOWN_speed=value[GO_CONT];
+                        delay_us(200);
+                        SetpMotor_SetSpeed(0,DOWN_speed);
+                        SetpMotor_SetSpeed(1,DOWN_speed);
+                        SetpMotor_SetSpeed(2,DOWN_speed);
+                        SetpMotor_SetSpeed(3,DOWN_speed);
+                    }
+                    going_wait=0;
+                    motor[0].step=motor[0].target=0;
+                    motor[1].step=motor[1].target=0;
+                    motor[2].step=motor[2].target=0;
+                    motor[3].step=motor[3].target=0;
+                }
+            }
+        }
+        break;
+    case 1:
+        speed_up(1,50000);
+        if(motor[0].target!=motor[0].step)//当左上角和右上角都没有检测到垄的时候开始减速到60
+            going_wait=1;
+        while(going_wait)
+        {   if(L_above_C==1&&R_above_C==1)
+            {   delay_ms(2);
+                if(L_below_C==0||R_below_C==0)
+                {
+                    for(GO_CONT = 509; GO_CONT>225; GO_CONT--)//每隔200us重复设定速度值，越大越慢
+                    {
+                        DOWN_speed=value[GO_CONT];
+                        delay_us(200);
+                        SetpMotor_SetSpeed(0,DOWN_speed);
+                        SetpMotor_SetSpeed(1,DOWN_speed);
+                        SetpMotor_SetSpeed(2,DOWN_speed);
+                        SetpMotor_SetSpeed(3,DOWN_speed);
+                    }
+                    going_wait=0;
+                }
+            }
+        }
+        if(motor[0].target!=motor[0].step)//当左前方检测到垄边的时候开始减速很慢，然后停下
+            going_wait=1;
+        while(going_wait)
+        {   if(L_front==0)
+            {   delay_ms(2);
+                if(L_front==0)
+                {
+                    for(GO_CONT = 225; GO_CONT>0; GO_CONT--)//每隔200us重复设定速度值，越大越慢
+                    {
+                        DOWN_speed=value[GO_CONT];
+                        delay_us(200);
+                        SetpMotor_SetSpeed(0,DOWN_speed);
+                        SetpMotor_SetSpeed(1,DOWN_speed);
+                        SetpMotor_SetSpeed(2,DOWN_speed);
+                        SetpMotor_SetSpeed(3,DOWN_speed);
+                    }
+                    going_wait=0;
+                    motor[0].step=motor[0].target=0;
+                    motor[1].step=motor[1].target=0;
+                    motor[2].step=motor[2].target=0;
+                    motor[3].step=motor[3].target=0;
+                }
+            }
+        }
+        break;
+
+    }
 }
 

@@ -1,5 +1,5 @@
 Dependencies for Project 'USART', Target 'USART': (DO NOT MODIFY !)
-F (.\main.c)(0x5D94902B)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\TIMER -I..\STM32F10x_FWLib\src -I..\HARDWARE\STEP -I..\HARDWARE\WAVE -I..\HARDWARE\INFRARED_INIT-I C:\Users\HPZ\Desktop\国庆一号\EASTRED\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x5D9497CA)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\TIMER -I..\STM32F10x_FWLib\src -I..\HARDWARE\STEP -I..\HARDWARE\WAVE -I..\HARDWARE\INFRARED_INIT-I C:\Users\HPZ\Desktop\国庆一号\EASTRED\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (..\SYSTEM\delay\delay.h)(0x5D941034)
 I (..\SYSTEM\sys\sys.h)(0x5D941034)
 I (..\USER\stm32f10x.h)(0x5D941034)
@@ -33,7 +33,7 @@ I (..\STM32F10x_FWLib\inc\misc.h)(0x5D941034)
 I (..\SYSTEM\usart\usart.h)(0x5D941034)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (..\HARDWARE\TIMER\timer.h)(0x5D941034)
-I (..\HARDWARE\STEP\step.h)(0x5D94706A)
+I (..\HARDWARE\STEP\step.h)(0x5D949454)
 I (..\HARDWARE\WAVE\wave.h)(0x5D80D212)
 I (..\HARDWARE\INFRARED_INIT\infrared_INIT.h)(0x5D948E1A)
 F (.\stm32f10x_it.c)(0x5D941034)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\TIMER -I..\STM32F10x_FWLib\src -I..\HARDWARE\STEP -I..\HARDWARE\WAVE -I..\HARDWARE\INFRARED_INIT-I C:\Users\HPZ\Desktop\国庆一号\EASTRED\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f10x_it.o --omf_browse ..\obj\stm32f10x_it.crf --depend ..\obj\stm32f10x_it.d)
@@ -129,8 +129,8 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x5D941034)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x5D941034)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x5D941034)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-F (..\HARDWARE\STEP\step.c)(0x5D94909E)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\TIMER -I..\STM32F10x_FWLib\src -I..\HARDWARE\STEP -I..\HARDWARE\WAVE -I..\HARDWARE\INFRARED_INIT-I C:\Users\HPZ\Desktop\国庆一号\EASTRED\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\step.o --omf_browse ..\obj\step.crf --depend ..\obj\step.d)
-I (..\HARDWARE\STEP\step.h)(0x5D94706A)
+F (..\HARDWARE\STEP\step.c)(0x5D94A063)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\TIMER -I..\STM32F10x_FWLib\src -I..\HARDWARE\STEP -I..\HARDWARE\WAVE -I..\HARDWARE\INFRARED_INIT-I C:\Users\HPZ\Desktop\国庆一号\EASTRED\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\step.o --omf_browse ..\obj\step.crf --depend ..\obj\step.d)
+I (..\HARDWARE\STEP\step.h)(0x5D949454)
 I (..\SYSTEM\sys\sys.h)(0x5D941034)
 I (..\USER\stm32f10x.h)(0x5D941034)
 I (..\CORE\core_cm3.h)(0x5D941034)
@@ -165,6 +165,7 @@ I (..\SYSTEM\delay\delay.h)(0x5D941034)
 I (..\SYSTEM\usart\usart.h)(0x5D941034)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
 I (..\HARDWARE\WAVE\wave.h)(0x5D80D212)
+I (..\HARDWARE\INFRARED_INIT\infrared_INIT.h)(0x5D948E1A)
 F (..\HARDWARE\WAVE\wave.c)(0x5D946AAC)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\USER -I..\STM32F10x_FWLib\inc -I..\CORE -I..\HARDWARE\TIMER -I..\STM32F10x_FWLib\src -I..\HARDWARE\STEP -I..\HARDWARE\WAVE -I..\HARDWARE\INFRARED_INIT-I C:\Users\HPZ\Desktop\国庆一号\EASTRED\USER\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\wave.o --omf_browse ..\obj\wave.crf --depend ..\obj\wave.d)
 I (..\HARDWARE\WAVE\wave.h)(0x5D80D212)
 I (..\SYSTEM\sys\sys.h)(0x5D941034)

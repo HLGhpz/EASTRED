@@ -35,3 +35,4 @@
 ..\obj\step.o: ..\SYSTEM\usart\usart.h
 ..\obj\step.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\step.o: ..\HARDWARE\WAVE\wave.h
+..\obj\step.o: ..\HARDWARE\INFRARED_INIT\infrared_INIT.h

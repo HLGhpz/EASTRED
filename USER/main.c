@@ -16,9 +16,9 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 
     while(1)
-    {  speed_up(1,1700);
-	   step_wait();
-	   speed_down(1,16000);
+    {  
+		GO(1);
+		GO(0);
 	}
 }
 
