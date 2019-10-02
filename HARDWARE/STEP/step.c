@@ -103,7 +103,53 @@ void speed_up(int ia,int step)//四个电机一起加速
         SetpMotor_SetSpeed(3,Speed);
     }
 }
+void part_speed_up(int CONT,int ia,s32 step)
+{
+	
+    int Count=0;//加速标志数
+    int Speed;
+	
+    switch(ia)//设定四个步进电机目标步数
+    {
+    case 0:
+        //
+        SetpMotor_SetStep(0,step);	//后退
+        SetpMotor_SetStep(1,step);
+        SetpMotor_SetStep(2,-step);
+        SetpMotor_SetStep(3,-step);
+        break;
+    case 1:
+        SetpMotor_SetStep(0,-step);	//前进
+        SetpMotor_SetStep(1,-step);
+        SetpMotor_SetStep(2,step);
+        SetpMotor_SetStep(3,step);
+        break;
+    case 2:
+        SetpMotor_SetStep(0,step);	//左移
+        SetpMotor_SetStep(1,-step);
+        SetpMotor_SetStep(2,step);
+        SetpMotor_SetStep(3,-step);
+        break;
+    case 3:
+        SetpMotor_SetStep(0,-step);	//右移
+        SetpMotor_SetStep(1,step);
+        SetpMotor_SetStep(2,-step);
+        SetpMotor_SetStep(3,step);
+        break;
+    }
 
+
+    for(Count = 0; Count<CONT; Count++)//每隔2ms重复设定速度值，越小越快
+    {                                  //45速239
+        Speed=value[Count];
+        delay_ms(2);
+        SetpMotor_SetSpeed(0,Speed);
+        SetpMotor_SetSpeed(1,Speed);
+        SetpMotor_SetSpeed(2,Speed);
+        SetpMotor_SetSpeed(3,Speed);
+    }
+
+}
 void speed_down(int ia,int step)//四个电机一起加速
 {
     int Count;//加速标志数
@@ -141,14 +187,58 @@ void speed_down(int ia,int step)//四个电机一起加速
         Speed=value[Count];
         Speed=value[Count];
         Speed=value[Count];
-        delay_ms(1);
+        delay_ms(2);
         SetpMotor_SetSpeed(0,Speed);
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
         SetpMotor_SetSpeed(3,Speed);
     }
 }
-
+void part_down(int CONT,int ia,s32 step)
+{
+	
+    int Count;//加速标志数
+    int Speed;
+    switch(ia)//设定四个步进电机目标步数
+    {
+    case 0:
+        SetpMotor_SetStep(0,step);	//后退
+        SetpMotor_SetStep(1,step);
+        SetpMotor_SetStep(2,-step);
+        SetpMotor_SetStep(3,-step);
+        break;
+    case 1:
+        SetpMotor_SetStep(0,-step);	//前进
+        SetpMotor_SetStep(1,-step);
+        SetpMotor_SetStep(2,step);
+        SetpMotor_SetStep(3,step);
+        break;
+    case 2:
+        SetpMotor_SetStep(0,step);	//左移
+        SetpMotor_SetStep(1,-step);
+        SetpMotor_SetStep(2,step);
+        SetpMotor_SetStep(3,-step);
+        break;
+    case 3:
+        SetpMotor_SetStep(0,-step);	//右移
+        SetpMotor_SetStep(1,step);
+        SetpMotor_SetStep(2,-step);
+        SetpMotor_SetStep(3,step);
+        break;
+    }
+    for(Count = CONT; Count>0; Count--)//每隔2ms重复设定速度值，越大越慢
+    {
+        Speed=value[Count];
+        Speed=value[Count];
+        Speed=value[Count];
+        Speed=value[Count];
+        delay_ms(2);
+        SetpMotor_SetSpeed(0,Speed);
+        SetpMotor_SetSpeed(1,Speed);
+        SetpMotor_SetSpeed(2,Speed);
+        SetpMotor_SetSpeed(3,Speed);
+    }
+}
 void step_wait(void)
 {   int wait=0;
     if(motor[0].target!=motor[0].step) 

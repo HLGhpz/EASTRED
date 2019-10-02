@@ -34,3 +34,5 @@
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\STEP\step.h
+..\obj\main.o: ..\HARDWARE\HC_05\hc_05.h
+..\obj\main.o: ..\HARDWARE\TIM_6\tim_6_time.h

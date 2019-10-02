@@ -44,7 +44,7 @@ void TIM2_Int_Init(u16 arr,u16 psc)
     TIM_ITConfig(TIM2,TIM_IT_Update,ENABLE ); //使能指定的TIM2中断,允许更新中断
 
     NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;  //TIM2中断
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //先占优先级0级
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  //先占优先级0级
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  //从优先级3级
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
     NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
@@ -67,10 +67,11 @@ void SetpMotor_SetSpeed(int id, int speed)//控制速度
 
 void TIM2_IRQHandler(void)//中断服务函数，每隔一段时间进入一次函数
 {
+	printf("TIM2_IRQHandler\r\n");
     if(TIM_GetITStatus(TIM2,TIM_IT_Update) != RESET)       //判断使能
     {
-        MOTOR_IRQHandler();
-        timer++;
+       timer++;
+	   MOTOR_IRQHandler();        
     }
     TIM_ClearITPendingBit(TIM2,TIM_IT_Update);
 }

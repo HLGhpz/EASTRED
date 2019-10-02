@@ -1,0 +1,237 @@
+#include "all_set.h"
+
+float time[2];
+int dist[2];
+int left_dist;
+void hc_05_init(void)
+{
+    GPIO_InitTypeDef GPIO_InitStructure;//端口结构体
+
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);//使能GPIOA
+
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3|GPIO_Pin_4;//TRIG  使用绿线  发送
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//推挽输出
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOA,&GPIO_InitStructure);
+
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5|GPIO_Pin_6;//ECHO  使用黄线  接受
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;//下拉输入
+    GPIO_Init(GPIOA,&GPIO_InitStructure);
+}
+
+//发送超声波
+void hc_05_send(void)
+{
+    //ECHO拉高后 延时20us
+    PAout(3)=PAout(4)=1;
+    delay_us(20);
+    PAout(3)=PAout(4)=0;
+}
+//超声波中断初始化
+void hc_05_int_init(void)
+{
+    EXTI_InitTypeDef EXTI_InitStructure;
+    //中断结构体
+    NVIC_InitTypeDef NVIC_InitStructure;
+    //优先级结构体
+
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);//使能复用功能时钟
+
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA,GPIO_PinSource5);
+    EXTI_InitStructure.EXTI_Line = EXTI_Line5;
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;//上升沿和下升沿都触发
+    EXTI_Init(&EXTI_InitStructure);	 	//根据EXTI_InitStruct中指定的参数初始化外设EXTI寄存器
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOA,GPIO_PinSource6);
+    EXTI_InitStructure.EXTI_Line = EXTI_Line6;
+    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;//上升沿和下升沿都触发
+    EXTI_Init(&EXTI_InitStructure);	 	//根据EXTI_InitStruct中指定的参数初始化外设EXTI寄存器
+    EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+
+    NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x02;//抢占优先级2
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x03;		//子优先级3
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);   //使能外部中断通道
+}
+int i = 0;
+int j = 0;
+//int dist_all=0;
+//int dist_real=0;
+//int n1=0;
+//int t1[10];//临时存放时间
+void EXTI9_5_IRQHandler(void)
+{
+    if(EXTI_GetITStatus(EXTI_Line5) == SET)
+    {
+        if(PAin(5))
+            //上升沿开始计时
+        {
+            time[0] = NOW;
+        }
+        else
+            //下降沿结束计时
+        {
+            if(NOW-time[0]<0.005)
+                //当距离小于170cm
+            {
+                dist[0] = (NOW-time[0])*17000*10;
+
+            }
+            else
+            {
+                dist[0] = 99999;
+//				printf("dist[0] = %d\r\n",dist[0]);
+
+            }
+            printf("dist[0] = %d\r\n",dist[0]);
+
+        }
+        EXTI_ClearITPendingBit(EXTI_Line5);
+    }
+
+
+    if(EXTI_GetITStatus(EXTI_Line6) == SET)
+    {
+        if(PAin(6))
+            //上升沿开始计时
+        {
+            time[1] = NOW;
+        }
+        else
+            //下降沿结束计时
+        {
+            if(NOW-time[1]<0.005)
+                //当距离小于170cm
+            {
+                dist[1] = (NOW-time[1])*17000*10;
+                //				printf("dist[1] = %d\r\n",dist[1]);
+            }
+            else
+            {
+                dist[1] = 99999;
+                //				printf("dist[1] = %d\r\n",dist[1]);
+
+            }
+            printf("dist[1] = %d\r\n",dist[1]);
+        }
+        EXTI_ClearITPendingBit(EXTI_Line6);
+
+    }
+}
+
+
+
+#include "all_set.h"
+
+#define ABS(x)  ( (x)>0?(x):-(x) )
+//转向舵机 （199，7199）250~765~1250   5v
+extern int timer;
+extern int dist[2];
+
+int main(void)
+{
+   static int flag=0;
+   int x;
+   all_set();
+   hc_05_send();
+   TIM2->CCR4 = 750;
+   TIM3->CCR1 = 900;//左轮 接 PB4 IN4
+   TIM3->CCR2 = 900;//右轮 接 PB5 IN2
+   while(1)
+   {
+		hc_05_send();
+		while(dist[0]<300&&dist[1]<400)
+		 {
+//			printf("1 dist[0] = %d\r\n",dist[0]);
+			if(dist[0]>170&&dist[0]<=300)
+				//靠右 向左转 左慢
+			{
+				if(dist[0]>200)
+				{
+					x = 200;
+				}
+				else
+				{
+					x = dist[0];
+				}
+				TIM2->CCR4 = 750 - 0.5*ABS((x - 165));
+				TIM3->CCR1 = 900 - 5*ABS((x - 165));
+//				TIM3->CCR1 = 0;
+				TIM3->CCR2 = 900;
+			}
+			else if(dist[0]<160&&dist[0]>20)
+				//靠左
+			{
+				if(dist[0]<130)
+				{
+					x = 130;
+				}
+				else if(dist[0]<160&&dist[0]>=130)
+				{
+					x = dist[0];
+				}
+				TIM2->CCR4 = 750 + 0.7*ABS((x - 165));
+				TIM3->CCR1 = 900;
+//				TIM3->CCR2 = 0;
+				TIM3->CCR2 = 900 - 10*ABS((x- 165));
+			}
+			else if(dist[0]>=160&&dist[0]<=170)
+			{
+				TIM2->CCR4 = 750;
+				TIM3->CCR1 = 900;
+				TIM3->CCR2 = 900;
+			}
+			else if(dist[0] == 99999)
+			{
+				continue;
+			}		 
+	     hc_05_send();
+ //      delay_ms(10);			
+		 }
+//		 flag++;
+//		 if(flag==1||flag==2)
+//		 {
+//         hc_05_send();
+          while(dist[0]>300)
+         {
+           TIM2->CCR4 = 750;
+           TIM3->CCR1 = 500;
+           TIM3->CCR2 = 500;
+           hc_05_send();		
+         	while(INFRA == 1)
+         	{
+         		TIM2->CCR4 = 575;
+         		TIM3->CCR1 = 500;
+         		TIM3->CCR2 = 900;
+         	}
+         }
+//		 }
+//		 else if(flag==3||flag==4)
+//		 {
+//			  
+//		 }
+//		 while(dist[0]>300)
+//		 {
+//			TIM2->CCR4 = 750;
+//			TIM3->CCR1 = 500;
+//			TIM3->CCR2 = 500;
+//	     hc_05_send();		
+//				while(INFRA == 1)
+//				{
+//					TIM2->CCR4 = 575;
+//					TIM3->CCR1 = 500;
+//					TIM3->CCR2 = 900;
+//				}
+//		 }
+		TIM2->CCR4 = 750;
+//		TIM3->CCR1 = 0;
+//		TIM3->CCR2 = 0;
+//		delay_ms(1000);
+   }
+}
+
+
