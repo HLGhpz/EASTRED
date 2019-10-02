@@ -1,5 +1,7 @@
 #include "timer.h"
 #include "sys.h"
+#include "stdio.h"
+
 StepMotor motor[4];
 int timer=0;
 void STEP_IO(void)//使能步进电机IO口
@@ -8,19 +10,19 @@ void STEP_IO(void)//使能步进电机IO口
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOC, ENABLE);	 //使能PB,PE端口时钟
 
+    //设置输出端口
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5;		//PA.0 端口配置
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
     GPIO_Init(GPIOA, &GPIO_InitStructure);					 //根据设定参数初始化GPIOA.0
     GPIO_ResetBits(GPIOA,GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);			//输出低
 
+    //设置方向端口
     GPIO_InitStructure.GPIO_Pin =GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2;			//LED0-->PB.5 端口配置
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
     GPIO_Init(GPIOB, &GPIO_InitStructure);					 //根据设定参数初始化GPIOB.5
 	GPIO_SetBits(GPIOB,GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2);			//输出低
-
-	
     GPIO_InitStructure.GPIO_Pin =GPIO_Pin_5;				 //LED0-->PB.5 端口配置
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
@@ -50,13 +52,16 @@ void TIM2_Int_Init(u16 arr,u16 psc)
 
     STEP_IO();//使能步进电机IO口
 }
+
 void SetpMotor_SetStep(int id, s32 steps)//控制步数
 {
+    motor[id].step = 0;
     motor[id].target=motor[id].step+steps*2;
 }
 
 void SetpMotor_SetSpeed(int id, int speed)//控制速度
 {
+    printf("id = %d, speed = %d\r\n",id,speed);
     motor[id].div=speed;//每隔div一段时间，执行内容一次
 }
 
@@ -79,6 +84,7 @@ void MOTOR_IRQHandler(void)//步进电机中断
 }
 
 void Motor_0(u32 timer)
+    //A0 B0
 {
     if(timer%motor[0].div==0)
     {
@@ -96,8 +102,10 @@ void Motor_0(u32 timer)
         }
     }
 }
+
 void Motor_1(u32 timer)
 {
+    //A1 B1
     if(timer%motor[1].div==0)
     {
         if(motor[1].step<motor[1].target)
@@ -114,8 +122,10 @@ void Motor_1(u32 timer)
         }
     }
 }
+
 void Motor_2(u32 timer)
 {
+    //A4 B2
     if(timer%motor[2].div==0)
     {
         if(motor[2].step<motor[2].target)
@@ -132,8 +142,10 @@ void Motor_2(u32 timer)
         }
     }
 }
+
 void Motor_3(u32 timer)
 {
+    //A5 C5
     if(timer%motor[3].div==0)
     {
         if(motor[3].step<motor[3].target)

@@ -55,52 +55,85 @@ int value[]=
     25,25,25,25,25,25,25,25,25,25
 };
 
-void speed_up(int ia,s32 step)//四个电机一起加速
+void speed_up(int ia,int step)//四个电机一起加速
 {
     int Count=0;//加速标志数
     int Speed;
-    switch(ia)//设定四个步进电机目标步数
+    printf("ia= %d\r\n",ia);
+//    switch(ia)//设定四个步进电机目标步数
+//    {
+//    case 0:
+//        //
+//        SetpMotor_SetStep(0,step);	//后退
+//        SetpMotor_SetStep(1,step);
+//        SetpMotor_SetStep(2,-step);
+//        SetpMotor_SetStep(3,-step);
+//        break;
+//    case 1:
+//        SetpMotor_SetStep(0,-step);	//前进
+//        SetpMotor_SetStep(1,-step);
+//        SetpMotor_SetStep(2,step);
+//        SetpMotor_SetStep(3,step);
+//        break;
+//    case 2:
+//        SetpMotor_SetStep(0,step);	//左移
+//        SetpMotor_SetStep(1,-step);
+//        SetpMotor_SetStep(2,step);
+//        SetpMotor_SetStep(3,-step);
+//        break;
+//    case 3:
+//        SetpMotor_SetStep(0,-step);	//右移
+//        SetpMotor_SetStep(1,step);
+//        SetpMotor_SetStep(2,-step);
+//        SetpMotor_SetStep(3,step);
+//        break;
+//    }
+    if(ia == 0)
     {
-    case 0:
         SetpMotor_SetStep(0,step);	//后退
         SetpMotor_SetStep(1,step);
         SetpMotor_SetStep(2,-step);
         SetpMotor_SetStep(3,-step);
-        break;
-    case 1:
+    }
+    else if(ia == 1)
+    {
         SetpMotor_SetStep(0,-step);	//前进
         SetpMotor_SetStep(1,-step);
         SetpMotor_SetStep(2,step);
         SetpMotor_SetStep(3,step);
-        break;
-    case 2:
+    }
+    else if(ia == 2)
+    {
         SetpMotor_SetStep(0,step);	//左移
         SetpMotor_SetStep(1,-step);
         SetpMotor_SetStep(2,step);
         SetpMotor_SetStep(3,-step);
-        break;
-    case 3:
+    }
+    else if(ia == 3)
+    {
         SetpMotor_SetStep(0,-step);	//右移
         SetpMotor_SetStep(1,step);
         SetpMotor_SetStep(2,-step);
         SetpMotor_SetStep(3,step);
-        break;
+    }
+    else
+    {
+        
     }
 
     for(Count = 0; Count<469; Count++)//每隔2ms重复设定速度值，越小越快
     {
-		
         Speed=value[Count];
-        delay_ms(1);
+        delay_ms(2);
         SetpMotor_SetSpeed(0,Speed);
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
         SetpMotor_SetSpeed(3,Speed);
-        printf("count = %d\r\n",Count);
+//        printf("count = %d\r\n",Count);
     }
 }
 
-void speed_down(int ia,s32 step)//四个电机一起加速
+void speed_down(int ia,int step)//四个电机一起加速
 {
     int Count;//加速标志数
     int Speed;
@@ -147,7 +180,8 @@ void speed_down(int ia,s32 step)//四个电机一起加速
 
 void step_wait(void)
 {   int wait=0;
-    if(motor[0].target!=motor[0].step) wait=1;
+    if(motor[0].target!=motor[0].step) 
+        wait=1;
     while(wait)
     {
         if(motor[0].target==motor[0].step)

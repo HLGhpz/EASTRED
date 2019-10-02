@@ -9,13 +9,14 @@ typedef struct {
     int div;       //频率
 } StepMotor;
 extern StepMotor motor[4];
+
 //定义外部变量，全局变量通过在.h文件中定义extern外部变量，可以在其他.c文件中调用，改变StepMotor motor[2]的值
 void MOTOR_IRQHandler(void);//定义步进电机中断
 void Motor_0(u32 timer);
 void Motor_1(u32 timer);
 void Motor_2(u32 timer);
 void Motor_3(u32 timer);
-void SetpMotor_SetStep(int id, int steps);      //控制步数
+void SetpMotor_SetStep(int id, s32 steps);      //控制步数
 void SetpMotor_SetSpeed(int id, int speed);     //控制速度
 void STEP_IO(void);
 #endif

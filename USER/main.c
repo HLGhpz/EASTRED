@@ -6,6 +6,7 @@
 
 int main(void)
 {
+    int a = -1;
     delay_init();	    	 //延时函数初始化
     uart_init(115200);	 //串口初始化为115200
     TIM2_Int_Init(12,10);
@@ -14,6 +15,7 @@ int main(void)
 //	delay_ms(1000);
 //	delay_ms(1000);
 //	delay_ms(1000);
+    printf("%d",a);
 
     while(1)
     {
