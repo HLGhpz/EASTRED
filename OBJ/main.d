@@ -34,3 +34,4 @@
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\STEP\step.h
+..\obj\main.o: ..\HARDWARE\WAVE\wave.h

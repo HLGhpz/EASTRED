@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\TIMER;..\STM32F10x_FWLib\src;..\HARDWARE\STEP</IncludePath>
+              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\TIMER;..\STM32F10x_FWLib\src;..\HARDWARE\STEP;..\HARDWARE\WAVE</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -441,6 +441,11 @@
               <FileName>step.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\STEP\step.c</FilePath>
+            </File>
+            <File>
+              <FileName>wave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\WAVE\wave.c</FilePath>
             </File>
           </Files>
         </Group>

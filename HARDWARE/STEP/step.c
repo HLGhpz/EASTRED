@@ -2,7 +2,14 @@
 #include "sys.h"
 #include "timer.h"
 #include "delay.h"
+#include "usart.h"
 #include "stdio.h"
+#include "wave.h"
+extern float Left_dist;
+extern float Front_dist;
+extern float Right_dist;
+extern float BackLeft_dist;
+extern float BackRight_dist;
 int value[]=
 {
 	3571,3571,3571,3571,3571,3571,3571,3571,3125,3125,
@@ -154,8 +161,11 @@ void step_wait(void)
     if(motor[0].target!=motor[0].step) 
         wait=1;
     while(wait)
-    {
-        if(motor[0].target==motor[0].step)
+    {    
+		UWaveBackRight_Send();UWaveBackLeft_Send();UWaveRight_Send();UWaveLeft_Send();UWaveCenter_Send();
+        printf("you : %f\r\n",Right_dist);
+		delay_ms(999);
+		if(motor[0].target==motor[0].step)
         {
             motor[0].step=motor[0].target=0;
             motor[1].step=motor[1].target=0;
