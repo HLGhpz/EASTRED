@@ -3,7 +3,7 @@
 ..\obj\step.o: ..\SYSTEM\sys\sys.h
 ..\obj\step.o: ..\USER\stm32f10x.h
 ..\obj\step.o: ..\CORE\core_cm3.h
-..\obj\step.o: E:\Program Files\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\step.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\step.o: ..\USER\system_stm32f10x.h
 ..\obj\step.o: ..\USER\stm32f10x_conf.h
 ..\obj\step.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
@@ -32,4 +32,4 @@
 ..\obj\step.o: ..\STM32F10x_FWLib\inc\misc.h
 ..\obj\step.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\step.o: ..\SYSTEM\delay\delay.h
-..\obj\step.o: E:\Program Files\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\step.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

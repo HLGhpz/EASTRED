@@ -56,12 +56,12 @@ void TIM2_Int_Init(u16 arr,u16 psc)
 void SetpMotor_SetStep(int id, s32 steps)//控制步数
 {
     motor[id].step = 0;
+	motor[id].target = 0;
     motor[id].target=motor[id].step+steps*2;
 }
 
 void SetpMotor_SetSpeed(int id, int speed)//控制速度
 {
-    printf("id = %d, speed = %d\r\n",id,speed);
     motor[id].div=speed;//每隔div一段时间，执行内容一次
 }
 
@@ -86,80 +86,93 @@ void MOTOR_IRQHandler(void)//步进电机中断
 void Motor_0(u32 timer)
     //A0 B0
 {
-    if(timer%motor[0].div==0)
-    {
-        if(motor[0].step<motor[0].target)
-        {
-            PBout(0)=0;
-            PAout(0)=timer/motor[0].div&1;
-            motor[0].step++;
-        }
-        else if(motor[0].step>motor[0].target)
-        {
-            PBout(0)=1;
-            PAout(0)=timer/motor[0].div&1;
-            motor[0].step--;
-        }
-    }
+	if(motor[0].div!=0)
+	{
+		if(timer%motor[0].div==0)
+		{
+			if(motor[0].step<motor[0].target)
+			{
+				PBout(0)=0;
+				PAout(0)=timer/motor[0].div&1;
+				motor[0].step++;
+			}
+			else if(motor[0].step>motor[0].target)
+			{
+				PBout(0)=1;
+				PAout(0)=timer/motor[0].div&1;
+				motor[0].step--;
+			}
+		}
+	}
+    
 }
 
 void Motor_1(u32 timer)
 {
     //A1 B1
-    if(timer%motor[1].div==0)
-    {
-        if(motor[1].step<motor[1].target)
-        {
-            PBout(1)=0;
-            PAout(1)=timer/motor[1].div&1;
-            motor[1].step++;
-        }
-        else if(motor[1].step>motor[1].target)
-        {
-            PBout(1)=1;
-            PAout(1)=timer/motor[1].div&1;
-            motor[1].step--;
-        }
-    }
+	if(motor[1].div!=0)
+	{
+		if(timer%motor[1].div==0)
+		{
+			if(motor[1].step<motor[1].target)
+			{
+				PBout(1)=0;
+				PAout(1)=timer/motor[1].div&1;
+				motor[1].step++;
+			}
+			else if(motor[1].step>motor[1].target)
+			{
+				PBout(1)=1;
+				PAout(1)=timer/motor[1].div&1;
+				motor[1].step--;
+			}
+		}
+	}
 }
 
 void Motor_2(u32 timer)
 {
     //A4 B2
-    if(timer%motor[2].div==0)
-    {
-        if(motor[2].step<motor[2].target)
-        {
-            PBout(2)=0;
-            PAout(4)=timer/motor[2].div&1;
-            motor[2].step++;
-        }
-        else if(motor[2].step>motor[2].target)
-        {
-            PBout(2)=1;
-            PAout(4)=timer/motor[2].div&1;
-            motor[2].step--;
-        }
-    }
+	if(motor[2].div!=0)
+	{
+		if(timer%motor[2].div==0)
+		{
+			if(motor[2].step<motor[2].target)
+			{
+				PBout(2)=0;
+				PAout(4)=timer/motor[2].div&1;
+				motor[2].step++;
+			}
+			else if(motor[2].step>motor[2].target)
+			{
+				PBout(2)=1;
+				PAout(4)=timer/motor[2].div&1;
+				motor[2].step--;
+			}
+		}
+	}
 }
 
 void Motor_3(u32 timer)
 {
     //A5 C5
-    if(timer%motor[3].div==0)
-    {
-        if(motor[3].step<motor[3].target)
-        {
-            PCout(5)=0;
-            PAout(5)=timer/motor[3].div&1;
-            motor[3].step++;
-        }
-        else if(motor[3].step>motor[3].target)
-        {
-            PCout(5)=1;
-            PAout(5)=timer/motor[3].div&1;
-            motor[3].step--;
-        }
-    }
+	if(motor[3].div!=0)
+	{
+		if(timer%motor[3].div==0)
+		{
+			if(motor[3].step<motor[3].target)
+			{
+				PCout(5)=0;
+				PAout(5)=timer/motor[3].div&1;
+				motor[3].step++;
+			}
+			else if(motor[3].step>motor[3].target)
+			{
+				PCout(5)=1;
+				PAout(5)=timer/motor[3].div&1;
+				motor[3].step--;
+			}
+		}
+	}
 }
 

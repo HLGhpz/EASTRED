@@ -59,67 +59,36 @@ void speed_up(int ia,int step)//四个电机一起加速
 {
     int Count=0;//加速标志数
     int Speed;
-    printf("ia= %d\r\n",ia);
-//    switch(ia)//设定四个步进电机目标步数
-//    {
-//    case 0:
-//        //
-//        SetpMotor_SetStep(0,step);	//后退
-//        SetpMotor_SetStep(1,step);
-//        SetpMotor_SetStep(2,-step);
-//        SetpMotor_SetStep(3,-step);
-//        break;
-//    case 1:
-//        SetpMotor_SetStep(0,-step);	//前进
-//        SetpMotor_SetStep(1,-step);
-//        SetpMotor_SetStep(2,step);
-//        SetpMotor_SetStep(3,step);
-//        break;
-//    case 2:
-//        SetpMotor_SetStep(0,step);	//左移
-//        SetpMotor_SetStep(1,-step);
-//        SetpMotor_SetStep(2,step);
-//        SetpMotor_SetStep(3,-step);
-//        break;
-//    case 3:
-//        SetpMotor_SetStep(0,-step);	//右移
-//        SetpMotor_SetStep(1,step);
-//        SetpMotor_SetStep(2,-step);
-//        SetpMotor_SetStep(3,step);
-//        break;
-//    }
-    if(ia == 0)
+	
+    switch(ia)//设定四个步进电机目标步数
     {
+    case 0:
+        //
         SetpMotor_SetStep(0,step);	//后退
         SetpMotor_SetStep(1,step);
         SetpMotor_SetStep(2,-step);
         SetpMotor_SetStep(3,-step);
-    }
-    else if(ia == 1)
-    {
+        break;
+    case 1:
         SetpMotor_SetStep(0,-step);	//前进
         SetpMotor_SetStep(1,-step);
         SetpMotor_SetStep(2,step);
         SetpMotor_SetStep(3,step);
-    }
-    else if(ia == 2)
-    {
+        break;
+    case 2:
         SetpMotor_SetStep(0,step);	//左移
         SetpMotor_SetStep(1,-step);
         SetpMotor_SetStep(2,step);
         SetpMotor_SetStep(3,-step);
-    }
-    else if(ia == 3)
-    {
+        break;
+    case 3:
         SetpMotor_SetStep(0,-step);	//右移
         SetpMotor_SetStep(1,step);
         SetpMotor_SetStep(2,-step);
         SetpMotor_SetStep(3,step);
+        break;
     }
-    else
-    {
-        
-    }
+
 
     for(Count = 0; Count<469; Count++)//每隔2ms重复设定速度值，越小越快
     {
@@ -129,7 +98,6 @@ void speed_up(int ia,int step)//四个电机一起加速
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
         SetpMotor_SetSpeed(3,Speed);
-//        printf("count = %d\r\n",Count);
     }
 }
 
