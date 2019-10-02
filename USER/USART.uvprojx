@@ -369,7 +369,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\TIMER;..\STM32F10x_FWLib\src;..\HARDWARE\STEP</IncludePath>
+              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\TIMER;..\STM32F10x_FWLib\src;..\HARDWARE\STEP;..\HARDWARE\HC_05;..\HARDWARE\TIM_6;..\HARDWARE\TIM_6</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -441,6 +441,16 @@
               <FileName>step.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\STEP\step.c</FilePath>
+            </File>
+            <File>
+              <FileName>hc_05.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\HC_05\hc_05.c</FilePath>
+            </File>
+            <File>
+              <FileName>tim_6_time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\TIM_6\tim_6_time.c</FilePath>
             </File>
           </Files>
         </Group>
