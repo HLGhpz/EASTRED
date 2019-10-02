@@ -18,14 +18,14 @@ void STEP_IO(void)//使能步进电机IO口
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
     GPIO_Init(GPIOB, &GPIO_InitStructure);					 //根据设定参数初始化GPIOB.5
-	GPIO_ResetBits(GPIOB,GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2);			//输出低
+	GPIO_SetBits(GPIOB,GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2);			//输出低
 
 	
     GPIO_InitStructure.GPIO_Pin =GPIO_Pin_5;				 //LED0-->PB.5 端口配置
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
     GPIO_Init(GPIOC, &GPIO_InitStructure);
-	GPIO_ResetBits(GPIOC,GPIO_Pin_5);			//输出低
+	GPIO_SetBits(GPIOC,GPIO_Pin_5);			//输出低
 
 }
 
@@ -50,7 +50,7 @@ void TIM2_Int_Init(u16 arr,u16 psc)
 
     STEP_IO();//使能步进电机IO口
 }
-void SetpMotor_SetStep(int id, int steps)//控制步数
+void SetpMotor_SetStep(int id, s32 steps)//控制步数
 {
     motor[id].target=motor[id].step+steps*2;
 }

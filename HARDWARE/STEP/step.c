@@ -55,7 +55,7 @@ int value[]=
     25,25,25,25,25,25,25,25,25,25
 };
 
-void speed_up(int ia,int step)//四个电机一起加速
+void speed_up(int ia,s32 step)//四个电机一起加速
 {
     int Count=0;//加速标志数
     int Speed;
@@ -89,8 +89,9 @@ void speed_up(int ia,int step)//四个电机一起加速
 
     for(Count = 0; Count<469; Count++)//每隔2ms重复设定速度值，越小越快
     {
+		
         Speed=value[Count];
-        delay_ms(2);
+        delay_ms(1);
         SetpMotor_SetSpeed(0,Speed);
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
@@ -99,7 +100,7 @@ void speed_up(int ia,int step)//四个电机一起加速
     }
 }
 
-void speed_down(int ia,int step)//四个电机一起加速
+void speed_down(int ia,s32 step)//四个电机一起加速
 {
     int Count;//加速标志数
     int Speed;
@@ -136,7 +137,7 @@ void speed_down(int ia,int step)//四个电机一起加速
         Speed=value[Count];
         Speed=value[Count];
         Speed=value[Count];
-        delay_ms(2);
+        delay_ms(1);
         SetpMotor_SetSpeed(0,Speed);
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
