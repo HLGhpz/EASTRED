@@ -103,7 +103,7 @@ void speed_up(int ia,int step)//四个电机一起加速
     for(Count = 0; Count<509; Count++)//每隔2ms重复设定速度值，越小越快
     {
         Speed=value[Count];
-        delay_ms(2);
+        delay_ms(2);//2ms时步数需要>1700；
         SetpMotor_SetSpeed(0,Speed);
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
@@ -161,10 +161,7 @@ void step_wait(void)
     if(motor[0].target!=motor[0].step) 
         wait=1;
     while(wait)
-    {    
-		UWaveBackRight_Send();UWaveBackLeft_Send();UWaveRight_Send();UWaveLeft_Send();UWaveCenter_Send();
-        printf("you : %f\r\n",Right_dist);
-		delay_ms(999);
+    {    		
 		if(motor[0].target==motor[0].step)
         {
             motor[0].step=motor[0].target=0;

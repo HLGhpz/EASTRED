@@ -5,6 +5,7 @@
 "..\obj\timer.o"
 "..\obj\step.o"
 "..\obj\wave.o"
+"..\obj\infrared_init.o"
 "..\obj\delay.o"
 "..\obj\sys.o"
 "..\obj\usart.o"

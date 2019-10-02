@@ -35,3 +35,4 @@
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\STEP\step.h
 ..\obj\main.o: ..\HARDWARE\WAVE\wave.h
+..\obj\main.o: ..\HARDWARE\INFRARED_INIT\infrared_INIT.h
