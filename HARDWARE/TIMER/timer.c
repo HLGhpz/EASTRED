@@ -61,7 +61,7 @@ void SetpMotor_SetStep(int id, s32 steps)//控制步数
 
 void SetpMotor_SetSpeed(int id, int speed)//控制速度
 {
-    printf("id = %d, speed = %d\r\n",id,speed);
+    //printf("id = %d, speed = %d\r\n",id,speed);
     motor[id].div=speed;//每隔div一段时间，执行内容一次
 }
 

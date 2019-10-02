@@ -33,3 +33,4 @@
 ..\obj\step.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\step.o: ..\SYSTEM\delay\delay.h
 ..\obj\step.o: E:\Program Files\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\step.o: ..\HARDWARE\TIM6\tim_6.h

@@ -3,6 +3,8 @@
 #include "timer.h"
 #include "delay.h"
 #include "stdio.h"
+#include "tim_6.h"
+
 int value[]=
 {
 
@@ -58,6 +60,7 @@ int value[]=
 void speed_up(int ia,int step)//四个电机一起加速
 {
     int Count=0;//加速标志数
+    int temp_time = 0 ;
     int Speed;
     printf("ia= %d\r\n",ia);
 //    switch(ia)//设定四个步进电机目标步数
@@ -123,12 +126,14 @@ void speed_up(int ia,int step)//四个电机一起加速
 
     for(Count = 0; Count<469; Count++)//每隔2ms重复设定速度值，越小越快
     {
+        temp_time = NOW;
         Speed=value[Count];
         delay_ms(2);
         SetpMotor_SetSpeed(0,Speed);
         SetpMotor_SetSpeed(1,Speed);
         SetpMotor_SetSpeed(2,Speed);
         SetpMotor_SetSpeed(3,Speed);
+        printf("%f\r\n", NOW-temp_time);
 //        printf("count = %d\r\n",Count);
     }
 }

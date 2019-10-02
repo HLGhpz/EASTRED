@@ -34,3 +34,4 @@
 ..\obj\main.o: E:\Program Files\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\HARDWARE\STEP\step.h
+..\obj\main.o: ..\HARDWARE\TIM6\tim_6.h
